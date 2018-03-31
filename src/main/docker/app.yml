@@ -1,0 +1,14 @@
+version: '2'
+services:
+    acm_statistics_jhipster-app:
+        image: acm_statistics_jhipster
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:mysql://acm_statistics_jhipster-mysql:3306/acm_statistics_jhipster?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+        ports:
+            - 8080:8080
+    acm_statistics_jhipster-mysql:
+        extends:
+            file: mysql.yml
+            service: acm_statistics_jhipster-mysql
