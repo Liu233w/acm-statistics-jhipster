@@ -18,7 +18,7 @@
     "searchEngine": false,
     "messageBroker": false,
     "serviceDiscoveryType": false,
-    "buildTool": "maven",
+    "buildTool": "gradle",
     "enableSocialSignIn": false,
     "enableSwaggerCodegen": false,
     "jwtSecretKey": "1a93b5c62786f5c846a17ceb7c0629a6326ce6e4",
