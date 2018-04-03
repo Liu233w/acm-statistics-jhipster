@@ -1,0 +1,43 @@
+DEFAULT_MAX_LENGTH = 128
+
+/** 存储了某个用户在查题网站上的用户名，某个用户可以有多个 Set，方便切换 */
+entity CrawlerUsernameSet {
+    usernames TextBlob required, /** 一个 json，存储了用户在各个网站上的用户名，如果某个用户名不存在，就不查询该网站 */
+    title String required maxlength(DEFAULT_MAX_LENGTH), /** 该订阅的名称，显示给用户，方便用户检索 */
+    userId Long required
+}
+
+/** 订阅。用户可以订阅某些 CrawlerUsernameSet，可以定期给用户发送报告 */
+entity CrawlerSubscription {
+	createTime Instant required,
+	period MailPeriod required /** 多久发一次 */
+}
+
+/** 发送邮件的周期 */
+enum MailPeriod {
+	DAILY,
+    WEEKLY,
+    MONTHLY
+}
+
+entity History {
+	submission Integer required,
+    solved Integer required,
+    detail TextBlob required, /** 查询的详细记录，包含了每个爬虫的查询结果 */
+    queryTime Instant required, /** 本次查询的时间 */
+    usernames TextBlob required,
+    userId Long required
+}
+
+relationship OneToOne {
+	CrawlerSubscription{crawlerUsernameSetId} to CrawlerUsernameSet{subscriptionId}
+}
+
+paginate History with infinite-scroll
+paginate CrawlerUsernameSet, CrawlerSubscription with pagination
+
+dto * with mapstruct
+
+service all with serviceImpl
+
+angularSuffix * with forAg
