@@ -1,0 +1,63 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCrawlerSubscriptionLabel">Create or edit a Crawler Subscription</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!crawlerSubscription.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="crawlerSubscription.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_createTime">Create Time</label>
+            <div class="d-flex">
+                <input id="field_createTime" type="datetime-local" class="form-control" name="createTime" [(ngModel)]="crawlerSubscription.createTime"
+                required/>
+            </div>
+            <div [hidden]="!(editForm.controls.createTime?.dirty && editForm.controls.createTime?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.createTime?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.createTime?.errors?.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_period" ngbTooltip="多久发一次">Period</label>
+            <select class="form-control" name="period" [(ngModel)]="crawlerSubscription.period" id="field_period"  required>
+                <option value="DAILY">DAILY</option>
+                <option value="WEEKLY">WEEKLY</option>
+                <option value="MONTHLY">MONTHLY</option>
+            </select>
+            <div [hidden]="!(editForm.controls.period?.dirty && editForm.controls.period?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.period?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_crawlerUsernameSetId">Crawler Username Set Id</label>
+            <select class="form-control" id="field_crawlerUsernameSetId" name="crawlerUsernameSetId" [(ngModel)]="crawlerSubscription.crawlerUsernameSetIdId">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="crawlerUsernameSetOption.id" *ngFor="let crawlerUsernameSetOption of crawlerusernamesetids; trackBy: trackCrawlerUsernameSetById">{{crawlerUsernameSetOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

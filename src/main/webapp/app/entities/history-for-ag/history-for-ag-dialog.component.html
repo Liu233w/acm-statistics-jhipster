@@ -1,0 +1,109 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myHistoryLabel">Create or edit a History</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!history.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="history.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_submission">Submission</label>
+            <input type="number" class="form-control" name="submission" id="field_submission"
+                [(ngModel)]="history.submission" required/>
+            <div [hidden]="!(editForm.controls.submission?.dirty && editForm.controls.submission?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.submission?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.submission?.errors?.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_solved">Solved</label>
+            <input type="number" class="form-control" name="solved" id="field_solved"
+                [(ngModel)]="history.solved" required/>
+            <div [hidden]="!(editForm.controls.solved?.dirty && editForm.controls.solved?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.solved?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.solved?.errors?.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_detail">Detail</label>
+            <textarea class="form-control" name="detail" id="field_detail"
+                [(ngModel)]="history.detail" required></textarea>
+            <div [hidden]="!(editForm.controls.detail?.dirty && editForm.controls.detail?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.detail?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_queryTime" ngbTooltip="查询的详细记录，包含了每个爬虫的查询结果">Query Time</label>
+            <div class="d-flex">
+                <input id="field_queryTime" type="datetime-local" class="form-control" name="queryTime" [(ngModel)]="history.queryTime"
+                required/>
+            </div>
+            <div [hidden]="!(editForm.controls.queryTime?.dirty && editForm.controls.queryTime?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.queryTime?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.queryTime?.errors?.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_usernames" ngbTooltip="本次查询的时间">Usernames</label>
+            <textarea class="form-control" name="usernames" id="field_usernames"
+                [(ngModel)]="history.usernames" required></textarea>
+            <div [hidden]="!(editForm.controls.usernames?.dirty && editForm.controls.usernames?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.usernames?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_userId">User Id</label>
+            <input type="number" class="form-control" name="userId" id="field_userId"
+                [(ngModel)]="history.userId" required/>
+            <div [hidden]="!(editForm.controls.userId?.dirty && editForm.controls.userId?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.userId?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.userId?.errors?.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

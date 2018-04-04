@@ -1,0 +1,36 @@
+
+<div *ngIf="crawlerSubscription">
+    <h2><span>Crawler Subscription</span> {{crawlerSubscription.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Create Time</span></dt>
+        <dd>
+            <span>{{crawlerSubscription.createTime | date:'medium'}}</span>
+        </dd>
+        <dt><span ngbTooltip="多久发一次">Period</span></dt>
+        <dd>
+            <span>{{crawlerSubscription.period}}</span>
+        </dd>
+        <dt><span>Crawler Username Set Id</span></dt>
+        <dd>
+            <div *ngIf="crawlerSubscription.crawlerUsernameSetIdId">
+                <a [routerLink]="['/crawler-username-set-for-ag', crawlerSubscription.crawlerUsernameSetIdId]">{{crawlerSubscription.crawlerUsernameSetIdId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'crawler-subscription-for-ag/'+ crawlerSubscription.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

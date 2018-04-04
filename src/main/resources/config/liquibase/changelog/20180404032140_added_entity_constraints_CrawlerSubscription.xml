@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity CrawlerSubscription.
+    -->
+    <changeSet id="20180404032140-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="crawler_username_set_id_id"
+                                 baseTableName="crawler_subscription"
+                                 constraintName="fk_crawler_subscription_crawler_username_set_id_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="crawler_username_set"/>
+
+    </changeSet>
+</databaseChangeLog>

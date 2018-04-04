@@ -1,0 +1,39 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "crawlerUsernameSetId",
+            "otherEntityName": "crawlerUsernameSet",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "subscriptionId"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "createTime",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "period",
+            "javadoc": "多久发一次",
+            "fieldType": "MailPeriod",
+            "fieldValues": "DAILY,WEEKLY,MONTHLY",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180404032140",
+    "javadoc": "订阅。用户可以订阅某些 CrawlerUsernameSet，可以定期给用户发送报告",
+    "entityTableName": "crawler_subscription",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "angularJSSuffix": "forAg"
+}

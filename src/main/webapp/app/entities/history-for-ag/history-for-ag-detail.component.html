@@ -1,0 +1,46 @@
+
+<div *ngIf="history">
+    <h2><span>History</span> {{history.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Submission</span></dt>
+        <dd>
+            <span>{{history.submission}}</span>
+        </dd>
+        <dt><span>Solved</span></dt>
+        <dd>
+            <span>{{history.solved}}</span>
+        </dd>
+        <dt><span>Detail</span></dt>
+        <dd>
+            <span>{{history.detail}}</span>
+        </dd>
+        <dt><span ngbTooltip="查询的详细记录，包含了每个爬虫的查询结果">Query Time</span></dt>
+        <dd>
+            <span>{{history.queryTime | date:'medium'}}</span>
+        </dd>
+        <dt><span ngbTooltip="本次查询的时间">Usernames</span></dt>
+        <dd>
+            <span>{{history.usernames}}</span>
+        </dd>
+        <dt><span>User Id</span></dt>
+        <dd>
+            <span>{{history.userId}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'history-for-ag/'+ history.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

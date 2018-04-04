@@ -1,0 +1,48 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "subscriptionId",
+            "otherEntityName": "crawlerSubscription",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "crawlerUsernameSetId"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "usernames",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "title",
+            "javadoc": "一个 json，存储了用户在各个网站上的用户名，如果某个用户名不存在，就不查询该网站",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 128
+        },
+        {
+            "fieldName": "userId",
+            "javadoc": "该订阅的名称，显示给用户，方便用户检索",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180404032139",
+    "javadoc": "存储了某个用户在查题网站上的用户名，某个用户可以有多个 Set，方便切换",
+    "entityTableName": "crawler_username_set",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "angularJSSuffix": "forAg"
+}
