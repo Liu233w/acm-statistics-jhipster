@@ -1,5 +1,7 @@
 package com.liu233w.acm_statistics.backend.service.impl;
 
+import com.codahale.metrics.annotation.Timed;
+import com.liu233w.acm_statistics.backend.security.AuthoritiesConstants;
 import com.liu233w.acm_statistics.backend.service.CrawlerSubscriptionService;
 import com.liu233w.acm_statistics.backend.domain.CrawlerSubscription;
 import com.liu233w.acm_statistics.backend.repository.CrawlerSubscriptionRepository;
@@ -9,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +41,8 @@ public class CrawlerSubscriptionServiceImpl implements CrawlerSubscriptionServic
      * @return the persisted entity
      */
     @Override
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public CrawlerSubscriptionDTO save(CrawlerSubscriptionDTO crawlerSubscriptionDTO) {
         log.debug("Request to save CrawlerSubscription : {}", crawlerSubscriptionDTO);
         CrawlerSubscription crawlerSubscription = crawlerSubscriptionMapper.toEntity(crawlerSubscriptionDTO);
@@ -53,6 +58,8 @@ public class CrawlerSubscriptionServiceImpl implements CrawlerSubscriptionServic
      */
     @Override
     @Transactional(readOnly = true)
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public Page<CrawlerSubscriptionDTO> findAll(Pageable pageable) {
         log.debug("Request to get all CrawlerSubscriptions");
         return crawlerSubscriptionRepository.findAll(pageable)
@@ -67,6 +74,8 @@ public class CrawlerSubscriptionServiceImpl implements CrawlerSubscriptionServic
      */
     @Override
     @Transactional(readOnly = true)
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public CrawlerSubscriptionDTO findOne(Long id) {
         log.debug("Request to get CrawlerSubscription : {}", id);
         CrawlerSubscription crawlerSubscription = crawlerSubscriptionRepository.findOne(id);
@@ -79,6 +88,8 @@ public class CrawlerSubscriptionServiceImpl implements CrawlerSubscriptionServic
      * @param id the id of the entity
      */
     @Override
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public void delete(Long id) {
         log.debug("Request to delete CrawlerSubscription : {}", id);
         crawlerSubscriptionRepository.delete(id);

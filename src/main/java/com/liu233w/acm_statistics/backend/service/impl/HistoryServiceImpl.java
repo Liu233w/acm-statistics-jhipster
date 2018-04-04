@@ -1,5 +1,7 @@
 package com.liu233w.acm_statistics.backend.service.impl;
 
+import com.codahale.metrics.annotation.Timed;
+import com.liu233w.acm_statistics.backend.security.AuthoritiesConstants;
 import com.liu233w.acm_statistics.backend.service.HistoryService;
 import com.liu233w.acm_statistics.backend.domain.History;
 import com.liu233w.acm_statistics.backend.repository.HistoryRepository;
@@ -9,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +41,8 @@ public class HistoryServiceImpl implements HistoryService {
      * @return the persisted entity
      */
     @Override
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public HistoryDTO save(HistoryDTO historyDTO) {
         log.debug("Request to save History : {}", historyDTO);
         History history = historyMapper.toEntity(historyDTO);
@@ -53,6 +58,8 @@ public class HistoryServiceImpl implements HistoryService {
      */
     @Override
     @Transactional(readOnly = true)
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public Page<HistoryDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Histories");
         return historyRepository.findAll(pageable)
@@ -67,6 +74,8 @@ public class HistoryServiceImpl implements HistoryService {
      */
     @Override
     @Transactional(readOnly = true)
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public HistoryDTO findOne(Long id) {
         log.debug("Request to get History : {}", id);
         History history = historyRepository.findOne(id);
@@ -79,6 +88,8 @@ public class HistoryServiceImpl implements HistoryService {
      * @param id the id of the entity
      */
     @Override
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public void delete(Long id) {
         log.debug("Request to delete History : {}", id);
         historyRepository.delete(id);

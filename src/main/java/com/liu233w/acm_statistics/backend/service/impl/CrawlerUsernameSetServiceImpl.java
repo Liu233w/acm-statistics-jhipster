@@ -1,5 +1,7 @@
 package com.liu233w.acm_statistics.backend.service.impl;
 
+import com.codahale.metrics.annotation.Timed;
+import com.liu233w.acm_statistics.backend.security.AuthoritiesConstants;
 import com.liu233w.acm_statistics.backend.service.CrawlerUsernameSetService;
 import com.liu233w.acm_statistics.backend.domain.CrawlerUsernameSet;
 import com.liu233w.acm_statistics.backend.repository.CrawlerUsernameSetRepository;
@@ -9,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,6 +45,8 @@ public class CrawlerUsernameSetServiceImpl implements CrawlerUsernameSetService 
      * @return the persisted entity
      */
     @Override
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public CrawlerUsernameSetDTO save(CrawlerUsernameSetDTO crawlerUsernameSetDTO) {
         log.debug("Request to save CrawlerUsernameSet : {}", crawlerUsernameSetDTO);
         CrawlerUsernameSet crawlerUsernameSet = crawlerUsernameSetMapper.toEntity(crawlerUsernameSetDTO);
@@ -57,6 +62,8 @@ public class CrawlerUsernameSetServiceImpl implements CrawlerUsernameSetService 
      */
     @Override
     @Transactional(readOnly = true)
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public Page<CrawlerUsernameSetDTO> findAll(Pageable pageable) {
         log.debug("Request to get all CrawlerUsernameSets");
         return crawlerUsernameSetRepository.findAll(pageable)
@@ -68,7 +75,9 @@ public class CrawlerUsernameSetServiceImpl implements CrawlerUsernameSetService 
      *  get all the crawlerUsernameSets where SubscriptionId is null.
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public List<CrawlerUsernameSetDTO> findAllWhereSubscriptionIdIsNull() {
         log.debug("Request to get all crawlerUsernameSets where SubscriptionId is null");
         return StreamSupport
@@ -86,6 +95,8 @@ public class CrawlerUsernameSetServiceImpl implements CrawlerUsernameSetService 
      */
     @Override
     @Transactional(readOnly = true)
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public CrawlerUsernameSetDTO findOne(Long id) {
         log.debug("Request to get CrawlerUsernameSet : {}", id);
         CrawlerUsernameSet crawlerUsernameSet = crawlerUsernameSetRepository.findOne(id);
@@ -98,6 +109,8 @@ public class CrawlerUsernameSetServiceImpl implements CrawlerUsernameSetService 
      * @param id the id of the entity
      */
     @Override
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public void delete(Long id) {
         log.debug("Request to delete CrawlerUsernameSet : {}", id);
         crawlerUsernameSetRepository.delete(id);
